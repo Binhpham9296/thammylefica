@@ -1,3 +1,5 @@
+const ZALO_URL = "https://zalo.me/84348393333";
+
 export default function Home() {
   const services = [
     { cat: "Triệt lông", name: "Triệt lông nách công nghệ Diode — 5 buổi", price: "1.190.000đ", old: "1.700.000đ", off: "-30%", rating: "★★★★★ (128)" },
@@ -30,9 +32,9 @@ export default function Home() {
       {/* Topbar */}
       <div className="bg-[#0E3E7A] text-white/85 text-xs">
         <div className="max-w-[1240px] mx-auto px-6 h-[34px] flex items-center justify-between">
-          <span>Thẩm mỹ Lefica — Công nghệ cao, an toàn, chuẩn quốc tế</span>
+          <span>Hệ thống thẩm mỹ Lefica — Công nghệ cao, an toàn, chuẩn quốc tế</span>
           <div className="hidden md:flex gap-5">
-            <a href="#" className="hover:text-white">Thẩm mỹ Lefica Spa</a>
+            <a href="#" className="hover:text-white">Hệ thống chi nhánh</a>
             <a href="#" className="hover:text-white">Tải app Lefica</a>
             <a href="#" className="hover:text-white">Đăng nhập / Đăng ký</a>
           </div>
@@ -58,18 +60,18 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-5 shrink-0 ml-auto">
-            <a href="tel:0000000000" className="hidden md:flex items-center gap-2 text-sm text-[#0E3E7A]">
+            <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 text-sm text-[#0E3E7A]">
               <span className="text-lg">📞</span>
               <span>
                 <strong className="block text-[13.5px]">0348.39.3333</strong>
-                <span className="text-xs text-[#5A6774]">Hỗ trợ 24/7</span>
+                <span className="text-xs text-[#5A6774]">Chat Zalo tư vấn</span>
               </span>
             </a>
-            <a href="#lich-hen" className="hidden md:flex items-center gap-2 text-sm text-[#0E3E7A]">
+            <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 text-sm text-[#0E3E7A]">
               <span className="text-lg">📅</span>
               <span>
                 <strong className="block text-[13.5px]">Lịch hẹn</strong>
-                <span className="text-xs text-[#5A6774]">Của tôi</span>
+                <span className="text-xs text-[#5A6774]">Đặt qua Zalo</span>
               </span>
             </a>
             <a href="#" className="relative flex items-center text-[#0E3E7A]">
@@ -103,21 +105,21 @@ export default function Home() {
                 <p className="text-sm text-white/85 mb-5 max-w-sm">
                   Áp dụng cho khách đặt lịch lần đầu trong tháng này. Tư vấn và soi da miễn phí trước khi làm liệu trình.
                 </p>
-                <a href="https://zalo.me/84348393333" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-[#0E3E7A] font-bold text-sm px-6 py-3 rounded-full">
-  Đặt lịch ngay
+                <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-[#0E3E7A] font-bold text-sm px-6 py-3 rounded-full">
+                  Đặt lịch ngay
                 </a>
               </div>
             </div>
 
             <div className="flex flex-row md:flex-col gap-4">
-              <div className="flex-1 rounded-2xl p-6 bg-[#EAF3FF] border border-[#E4EAF1] flex flex-col justify-center">
+              <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-2xl p-6 bg-[#EAF3FF] border border-[#E4EAF1] flex flex-col justify-center">
                 <strong className="text-[15.5px] block mb-1">Soi da miễn phí</strong>
                 <span className="text-xs text-[#5A6774]">Đặt lịch tư vấn cùng chuyên viên da liễu</span>
-              </div>
-              <div className="flex-1 rounded-2xl p-6 bg-gradient-to-br from-[#FFF4E9] to-[#FFE9D6] flex flex-col justify-center">
+              </a>
+              <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="flex-1 rounded-2xl p-6 bg-gradient-to-br from-[#FFF4E9] to-[#FFE9D6] flex flex-col justify-center">
                 <strong className="text-[15.5px] block mb-1">Gói combo tiết kiệm</strong>
                 <span className="text-xs text-[#5A6774]">Kết hợp trị mụn + trị thâm, tiết kiệm đến 25%</span>
-              </div>
+              </a>
             </div>
           </div>
         </section>
@@ -163,10 +165,13 @@ export default function Home() {
                   <div className="text-[11px] text-[#5A6774] uppercase tracking-wide mb-1">{s.cat}</div>
                   <h4 className="text-[13.5px] font-semibold leading-snug mb-2 min-h-[38px]">{s.name}</h4>
                   <div className="text-[11.5px] text-[#F5A623] mb-2">{s.rating}</div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 mb-3">
                     <span className="text-[#E6484D] font-extrabold text-[15px]">{s.price}</span>
                     <span className="text-[#9AA7B4] text-xs line-through">{s.old}</span>
                   </div>
+                  <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="text-[12.5px] font-semibold text-[#1461D6]">
+                    Đặt lịch qua Zalo →
+                  </a>
                 </div>
               </div>
             ))}
@@ -180,7 +185,7 @@ export default function Home() {
               <h3 className="text-xl font-extrabold mb-1">Đặt lịch hôm nay — Nhận tư vấn da miễn phí</h3>
               <p className="text-sm text-white/80">Chuyên viên gọi lại trong vòng 15 phút để tư vấn liệu trình phù hợp với làn da của bạn.</p>
             </div>
-            <a href="#dat-lich" className="bg-white text-[#0E3E7A] font-bold text-sm px-6 py-3 rounded-full">Đặt lịch ngay</a>
+            <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="bg-white text-[#0E3E7A] font-bold text-sm px-6 py-3 rounded-full">Đặt lịch ngay</a>
           </div>
         </section>
 
@@ -205,10 +210,13 @@ export default function Home() {
                   <div className="text-[11px] text-[#5A6774] uppercase tracking-wide mb-1">Trị nám</div>
                   <h4 className="text-[13.5px] font-semibold leading-snug mb-2">{s.name}</h4>
                   <div className="text-[11.5px] text-[#F5A623] mb-2">{s.rating}</div>
-                  <div className="flex items-baseline gap-2">
+                  <div className="flex items-baseline gap-2 mb-3">
                     <span className="text-[#E6484D] font-extrabold text-[15px]">{s.price}</span>
                     {s.old && <span className="text-[#9AA7B4] text-xs line-through">{s.old}</span>}
                   </div>
+                  <a href={ZALO_URL} target="_blank" rel="noopener noreferrer" className="text-[12.5px] font-semibold text-[#1461D6]">
+                    Đặt lịch qua Zalo →
+                  </a>
                 </div>
               </div>
             ))}
@@ -254,7 +262,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer id="dat-lich" className="bg-[#0E3E7A] text-white/75 pt-12">
+      <footer className="bg-[#0E3E7A] text-white/75 pt-12">
         <div className="max-w-[1240px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 pb-10">
             <div className="col-span-2 md:col-span-1">
@@ -288,7 +296,7 @@ export default function Home() {
             <div>
               <h4 className="text-white text-[13.5px] mb-3">Hỗ trợ khách hàng</h4>
               <div className="flex flex-col gap-2 text-xs">
-                <a href="#">Hướng dẫn đặt lịch</a>
+                <a href={ZALO_URL} target="_blank" rel="noopener noreferrer">Hướng dẫn đặt lịch</a>
                 <a href="#">Chính sách đổi lịch</a>
                 <a href="#">Câu hỏi thường gặp</a>
               </div>
@@ -297,7 +305,7 @@ export default function Home() {
               <h4 className="text-white text-[13.5px] mb-3">Liên hệ</h4>
               <div className="flex flex-col gap-2 text-xs">
                 <p>Địa chỉ: [Điền địa chỉ cơ sở]</p>
-                <p>Hotline: [Điền số điện thoại]</p>
+                <p>Hotline: 0348.39.3333</p>
                 <p>Giờ mở cửa: 9:00 – 20:00</p>
               </div>
             </div>
@@ -308,6 +316,17 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Sticky mobile Zalo button */}
+      <a
+        href={ZALO_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-5 right-5 z-50 bg-[#1461D6] text-white rounded-full w-14 h-14 flex items-center justify-center text-2xl shadow-lg md:hidden"
+        aria-label="Chat Zalo đặt lịch"
+      >
+        💬
+      </a>
     </div>
   );
 }
