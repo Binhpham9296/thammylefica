@@ -103,8 +103,8 @@ export default function Home() {
                 <p className="text-sm text-white/85 mb-5 max-w-sm">
                   Áp dụng cho khách đặt lịch lần đầu trong tháng này. Tư vấn và soi da miễn phí trước khi làm liệu trình.
                 </p>
-                <a href="#dat-lich" className="inline-block bg-white text-[#0E3E7A] font-bold text-sm px-6 py-3 rounded-full">
-                  Đặt lịch ngay
+                <a href="https://zalo.me/84348393333" target="_blank" rel="noopener noreferrer" className="inline-block bg-white text-[#0E3E7A] font-bold text-sm px-6 py-3 rounded-full">
+  Đặt lịch ngay
                 </a>
               </div>
             </div>
