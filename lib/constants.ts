@@ -1,0 +1,1 @@
+export const ZALO_URL = "https://zalo.me/84348393333";
