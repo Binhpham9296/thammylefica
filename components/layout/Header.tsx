@@ -5,11 +5,8 @@ import { useEffect, useState } from "react";
 
 const menuItems = [
   { name: "Trang chủ", href: "/" },
-  { name: "Tẩy lông", href: "#tay-long" },
-  { name: "Chăm sóc da mụn", href: "#cham-soc-da-mun" },
-  { name: "Chăm sóc da nám", href: "#cham-soc-da-nam" },
-  { name: "Xóa xăm", href: "#xoa-xam" },
-  { name: "Chăm sóc da", href: "#cham-soc-da" },
+  { name: "Dịch vụ", href: "#dich-vu" },
+  { name: "Sản phẩm", href: "/san-pham" },
   { name: "Bảng giá", href: "#bang-gia" },
   { name: "Blog", href: "#blog" },
   { name: "Liên hệ", href: "#footer" },
@@ -79,13 +76,13 @@ export default function Header() {
 
             {/* MENU */}
 
-            <nav className="hidden xl:flex gap-8 font-semibold text-gray-700">
+            <nav className="hidden xl:flex items-center gap-6 text-[15px] font-medium text-gray-700">
 
               {menuItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="hover:text-blue-600 transition"
+                  className="hover:text-blue-600 hover:font-semibold transition whitespace-nowrap"
                 >
                   {item.name}
                 </a>
@@ -99,7 +96,7 @@ export default function Header() {
 
               <input
                 placeholder="Tìm dịch vụ..."
-                className="w-72 h-11 border rounded-l-xl px-4 outline-none"
+                className="w-56 h-10 border rounded-l-xl px-4 outline-none text-sm"
               />
 
               <button className="h-11 px-5 bg-blue-600 text-white rounded-r-xl hover:bg-blue-700">

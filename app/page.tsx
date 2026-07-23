@@ -10,7 +10,7 @@ import NamGrid from "@/components/services/NamGrid";
 import TechStrip from "@/components/technology/TechStrip";
 import BlogSection from "@/components/blog/BlogSection";
 import ZaloFloatButton from "@/components/common/ZaloFloatButton";
-
+import AIChat from "@/components/ai/AIChat";
 export default function Home() {
   return (
     <div className="bg-[#F5F9FF] text-[#1C2733] font-sans">
@@ -30,6 +30,7 @@ export default function Home() {
 
       <Footer />
       <ZaloFloatButton />
+      <AIChat />
     </div>
   );
 }
