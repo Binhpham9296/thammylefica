@@ -1,24 +1,22 @@
 import { NextResponse } from "next/server";
 import { openrouter } from "@/lib/openrouter";
+import type { ChatRequest } from "../../../types/chat";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-
-    const messages = body.messages || [];
+    const body: ChatRequest = await req.json();
 
     const completion = await openrouter.chat.completions.create({
-      model: "deepseek/deepseek-chat-v3",
-
+      model: "deepseek/deepseek-r1",
       messages: [
         {
           role: "system",
           content: `
 Bạn là LEFICA AI.
 
-Bạn là chuyên gia thẩm mỹ.
+Bạn là chuyên gia chăm sóc da.
 
-Bạn chỉ tư vấn:
+Chỉ tư vấn:
 
 - Triệt lông
 - Trị mụn
@@ -37,36 +35,40 @@ Không được nói mình là DeepSeek.
 
 Không được nói mình là AI.
 
-Nếu khách chưa nói rõ tình trạng da hãy hỏi thêm.
+Nếu chưa đủ thông tin thì hỏi thêm.
 
 Nếu khách muốn đặt lịch hãy giới thiệu:
 
 https://zalo.me/84348393333
 
-Trả lời ngắn gọn.
+Luôn trả lời ngắn gọn.
 
 Lịch sự.
 
-Tự nhiên như nhân viên spa thật.
+Tự nhiên như nhân viên spa.
 `,
         },
 
-        ...messages,
+        ...body.messages,
       ],
     });
 
     return NextResponse.json({
-      reply: completion.choices[0].message.content,
+      reply:
+        completion.choices[0].message.content ??
+        "Em chưa có câu trả lời.",
     });
 
   } catch (error: any) {
 
-  console.error("========== OPENROUTER ==========");
-  console.error(error);
+    console.error("========== OPENROUTER ==========");
+    console.error(error);
 
-  return NextResponse.json({
-    reply: JSON.stringify(error, null, 2),
-  });
+    return NextResponse.json({
+      reply:
+        error?.message ??
+        "AI đang bận.",
+    });
 
-}
+  }
 }
