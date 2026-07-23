@@ -1,5 +1,6 @@
-import { ZALO_URL } from "@/lib/constants";
 
+import { ZALO_URL } from "@/lib/constants";
+import CountdownTimer from "./CountdownTimer";
 const services = [
   { cat: "Triệt lông", name: "Tẩy lông nách công nghệ Diode — 5 buổi", price: "1.190.000đ", old: "1.700.000đ", off: "-30%", rating: "★★★★★ (128)" },
   { cat: "Trị mụn", name: "Liệu trình chăm sóc da mụn viêm chuyên sâu — 1 buổi", price: "450.000đ", old: "560.000đ", off: "-20%", rating: "★★★★★ (96)" },
@@ -16,13 +17,8 @@ export default function FlashSale() {
           <span className="w-[5px] h-[22px] bg-[#1461D6] rounded" />
           <h2 className="text-xl font-extrabold">Ưu đãi trong tuần</h2>
         </div>
-        <div className="text-xs font-bold text-[#E6484D] flex items-center gap-1.5">
-          Kết thúc sau
-          <span className="bg-[#1C2733] text-white px-2 py-1 rounded">02</span>:
-          <span className="bg-[#1C2733] text-white px-2 py-1 rounded">14</span>:
-          <span className="bg-[#1C2733] text-white px-2 py-1 rounded">36</span>
+        <CountdownTimer />
         </div>
-      </div>
 
       <div className="grid grid-flow-col auto-cols-[220px] gap-4 overflow-x-auto pb-2">
         {services.map((s) => (

@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import About from "@/components/home/About";
+import VideoIntro from "@/components/home/VideoIntro";
 import Hero from "@/components/hero/Hero";
 import CategoryIcons from "@/components/home/CategoryIcons";
 import MidBanner from "@/components/home/MidBanner";
@@ -18,6 +19,7 @@ export default function Home() {
       <main>
         <Hero />
         <About />
+        <VideoIntro />
         <CategoryIcons />
         <FlashSale />
         <MidBanner />

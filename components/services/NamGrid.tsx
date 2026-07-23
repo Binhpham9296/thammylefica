@@ -1,7 +1,7 @@
 import { ZALO_URL } from "@/lib/constants";
 
 const namGrid = [
-  { name: "Chăm sóc da nám mảng bằng ánh sáng IPL — 1 buổi", price: "750.000đ", rating: "★★★★★ (61)" },
+  { name: "Chăm sóc da nám mảng bằng ánh sáng — 1 buổi", price: "750.000đ", rating: "★★★★★ (61)" },
   { name: "Combo chăm sóc da nám sau sinh — 6 buổi", price: "3.900.000đ", old: "4.800.000đ", rating: "★★★★★ (33)" },
   { name: "Peel da chăm sóc tàn nhang nhẹ — 1 buổi", price: "550.000đ", rating: "★★★★☆ (28)" },
   { name: "Chăm sóc duy trì sau liệu trình nám", price: "320.000đ", rating: "★★★★★ (45)" },
