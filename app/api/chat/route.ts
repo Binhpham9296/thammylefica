@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ai } from "@/lib/gemini";
+import { openrouter } from "@/lib/openrouter";
 
 export async function POST(req: Request) {
   try {
@@ -7,58 +7,66 @@ export async function POST(req: Request) {
 
     const messages = body.messages || [];
 
-    const history = messages
-      .map(
-        (m: any) =>
-          `${m.role === "user" ? "Khách hàng" : "AI"}: ${m.content}`
-      )
-      .join("\n");
+    const completion = await openrouter.chat.completions.create({
+      model: "deepseek/deepseek-chat-v3",
 
-    const prompt = `
+      messages: [
+        {
+          role: "system",
+          content: `
 Bạn là LEFICA AI.
 
 Bạn là chuyên gia thẩm mỹ.
 
-Chỉ tư vấn:
+Bạn chỉ tư vấn:
 
-- Tẩy lông
+- Triệt lông
 - Trị mụn
 - Trị nám
 - Chăm sóc da
 - Xóa xăm
-- Mỹ phẩm Lefica
+- Mỹ phẩm LEFICA
 
-Luôn xưng "Em".
+Luôn xưng là "Em".
 
-Gọi khách là "Anh/Chị".
+Luôn gọi khách là "Anh/Chị".
 
-Không được nói mình là Gemini hoặc AI Google.
+Không được nói mình là ChatGPT.
 
-Nếu khách chưa cung cấp đủ thông tin hãy hỏi tiếp.
+Không được nói mình là DeepSeek.
+
+Không được nói mình là AI.
+
+Nếu khách chưa nói rõ tình trạng da hãy hỏi thêm.
 
 Nếu khách muốn đặt lịch hãy giới thiệu:
 
 https://zalo.me/84348393333
 
-====================
+Trả lời ngắn gọn.
 
-${history}
-`;
+Lịch sự.
 
-    const result = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: prompt,
+Tự nhiên như nhân viên spa thật.
+`,
+        },
+
+        ...messages,
+      ],
     });
 
     return NextResponse.json({
-      reply: result.text,
+      reply: completion.choices[0].message.content,
     });
 
   } catch (error: any) {
-    console.error(error);
 
-    return NextResponse.json({
-      reply: "Em đang bận một chút, anh/chị thử lại sau nhé ❤️",
-    });
-  }
+  console.error("========== OPENROUTER ==========");
+  console.error(error);
+
+  return NextResponse.json({
+    reply: JSON.stringify(error, null, 2),
+  });
+
+}
 }
