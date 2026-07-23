@@ -1,129 +1,180 @@
-// components/ai/AIChat.tsx
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+
+import ChatButton from "./ChatButton";
+import ChatHeader from "./ChatHeader";
+
+export interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
 
 export default function AIChat() {
-  const [messages, setMessages] = useState<Array<{role: string, content: string}>>([]);
-  const [input, setInput] = useState('');
+  const [open, setOpen] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
-  const send = async () => {
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const [input, setInput] = useState("");
+
+  async function send() {
     if (!input.trim()) return;
 
-    // Thêm tin nhắn user
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    const user: Message = {
+      role: "user",
+      content: input,
+    };
+
+    const history = [...messages, user];
+
+    setMessages(history);
+
+    setInput("");
+
     setLoading(true);
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
+
         body: JSON.stringify({
-          messages: [...messages, userMessage],
+          messages: history,
         }),
       });
 
-      // Kiểm tra response
-      if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error || 'Lỗi không xác định');
-      }
+      const json = await res.json();
 
-      // Đọc stream
-      const reader = res.body?.getReader();
-      const decoder = new TextDecoder();
-      
-      if (!reader) {
-        throw new Error('Không thể đọc stream');
-      }
-
-      // Thêm tin nhắn assistant trống
-      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
-
-      let assistantReply = '';
-
-      // Đọc từng chunk
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        const chunk = decoder.decode(value);
-        assistantReply += chunk;
-
-        // Cập nhật tin nhắn assistant
-        setMessages(prev => {
-          const newMessages = [...prev];
-          newMessages[newMessages.length - 1] = {
-            role: 'assistant',
-            content: assistantReply,
-          };
-          return newMessages;
-        });
-      }
-
-    } catch (error: any) {
-      console.error('Send message error:', error);
-      setMessages(prev => [
+      setMessages((prev) => [
         ...prev,
-        { 
-          role: 'assistant', 
-          content: `Xin lỗi, em gặp lỗi: ${error.message || 'Không xác định'}. Anh/Chị thử lại nhé!` 
-        }
+        {
+          role: "assistant",
+          content: json.reply,
+        },
       ]);
-    } finally {
-      setLoading(false);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            "Xin lỗi Anh/Chị, em đang bận một chút.",
+        },
+      ]);
     }
-  };
+
+    setLoading(false);
+  }
 
   return (
-    <div className="flex flex-col h-[600px] max-w-2xl mx-auto border rounded-lg">
-      {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
-        {messages.map((msg, idx) => (
-          <div
-            key={idx}
-            className={`p-3 rounded-lg ${
-              msg.role === 'user' 
-                ? 'bg-blue-500 text-white ml-auto max-w-[80%]' 
-                : 'bg-gray-200 text-gray-800 mr-auto max-w-[80%]'
-            }`}
-          >
-            {msg.content || '...'}
-          </div>
-        ))}
-        {loading && (
-          <div className="bg-gray-200 text-gray-800 p-3 rounded-lg mr-auto">
-            <span className="animate-pulse">...</span>
-          </div>
-        )}
-      </div>
+    <>
+      <ChatButton
+        onClick={() => setOpen(true)}
+      />
 
-      {/* Input */}
-      <div className="p-4 border-t">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && send()}
-            placeholder="Nhập tin nhắn..."
-            className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={loading}
+      {open && (
+        <div
+          className="
+          fixed
+          bottom-24
+          right-5
+          w-[390px]
+          h-[650px]
+          rounded-3xl
+          bg-white
+          shadow-2xl
+          border
+          overflow-hidden
+          z-[99999]
+          flex
+          flex-col
+          "
+        >
+          <ChatHeader
+            onClose={() => setOpen(false)}
           />
-          <button
-            onClick={send}
-            disabled={loading || !input.trim()}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50"
+
+          <div
+            className="
+            flex-1
+            overflow-y-auto
+            p-5
+            bg-[#F5F7FB]
+            space-y-3
+            "
           >
-            {loading ? 'Đang gửi...' : 'Gửi'}
-          </button>
+            {messages.map((m, i) => (
+              <div
+                key={i}
+                className={
+                  m.role === "user"
+                    ? "flex justify-end"
+                    : "flex justify-start"
+                }
+              >
+                <div
+                  className={
+                    m.role === "user"
+                      ? "bg-[#0068FF] text-white rounded-2xl rounded-br-md px-4 py-3 max-w-[80%]"
+                      : "bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow max-w-[80%]"
+                  }
+                >
+                  {m.content}
+                </div>
+              </div>
+            ))}
+
+            {loading && (
+              <div className="text-sm text-gray-500">
+                LEFICA đang trả lời...
+              </div>
+            )}
+          </div>
+
+          <div className="border-t p-4 bg-white">
+            <div className="flex gap-2">
+              <input
+                value={input}
+                onChange={(e) =>
+                  setInput(e.target.value)
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    send();
+                  }
+                }}
+                placeholder="Nhập nội dung..."
+                className="
+                flex-1
+                border
+                rounded-xl
+                px-4
+                py-3
+                outline-none
+                "
+              />
+
+              <button
+                onClick={send}
+                className="
+                bg-[#0068FF]
+                text-white
+                rounded-xl
+                px-5
+                hover:opacity-90
+                "
+              >
+                Gửi
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

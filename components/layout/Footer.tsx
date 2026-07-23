@@ -44,7 +44,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white text-[13.5px] mb-3">Liên hệ</h4>
             <div className="flex flex-col gap-2 text-xs">
-              <p>Địa chỉ: [!67 Ngô Quyền Phường Lê Thanh Nghị Hải Dương]</p>
+              <p>Địa chỉ: [167 Ngô Quyền Phường Lê Thanh Nghị Hải Dương]</p>
               <p>Hotline: 0348.39.3333</p>
               <p>Giờ mở cửa: 9:00 – 20:00</p>
             </div>

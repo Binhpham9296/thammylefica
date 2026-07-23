@@ -22,7 +22,9 @@ export default function ChatButton({ onClick }: Props) {
   });
 
   useEffect(() => {
-    const saved = localStorage.getItem("lefica_chat_position");
+    const saved = localStorage.getItem(
+      "lefica-chat-position"
+    );
 
     if (saved) {
       setPosition(JSON.parse(saved));
@@ -35,7 +37,7 @@ export default function ChatButton({ onClick }: Props) {
   }, []);
 
   useEffect(() => {
-    const mouseMove = (e: MouseEvent) => {
+    function move(e: MouseEvent) {
       if (!dragging) return;
 
       moved.current = true;
@@ -44,9 +46,9 @@ export default function ChatButton({ onClick }: Props) {
         x: e.clientX - offset.current.x,
         y: e.clientY - offset.current.y,
       });
-    };
+    }
 
-    const mouseUp = () => {
+    function up() {
       if (!dragging) return;
 
       setDragging(false);
@@ -54,51 +56,73 @@ export default function ChatButton({ onClick }: Props) {
       const finalX =
         position.x < window.innerWidth / 2
           ? 15
-          : window.innerWidth - 78;
+          : window.innerWidth - 80;
 
       const finalY = Math.max(
-        15,
+        20,
         Math.min(
           position.y,
           window.innerHeight - 90
         )
       );
 
-      const finalPos = {
+      const p = {
         x: finalX,
         y: finalY,
       };
 
-      setPosition(finalPos);
+      setPosition(p);
 
       localStorage.setItem(
-        "lefica_chat_position",
-        JSON.stringify(finalPos)
+        "lefica-chat-position",
+        JSON.stringify(p)
       );
-    };
+    }
 
-    window.addEventListener("mousemove", mouseMove);
-    window.addEventListener("mouseup", mouseUp);
+    window.addEventListener("mousemove", move);
+
+    window.addEventListener("mouseup", up);
 
     return () => {
       window.removeEventListener(
         "mousemove",
-        mouseMove
+        move
       );
 
       window.removeEventListener(
         "mouseup",
-        mouseUp
+        up
       );
     };
   }, [dragging, position]);
 
   return (
     <button
+      style={{
+        left: position.x,
+        top: position.y,
+        position: "fixed",
+        transition: dragging
+          ? "none"
+          : "all .2s",
+      }}
+      className="
+      z-[999999]
+      w-16
+      h-16
+      rounded-full
+      shadow-2xl
+      overflow-hidden
+      cursor-grab
+      active:cursor-grabbing
+      hover:scale-110
+      active:scale-95
+      duration-200
+      "
       onMouseDown={(e) => {
-        setDragging(true);
-
         moved.current = false;
+
+        setDragging(true);
 
         offset.current = {
           x: e.clientX - position.x,
@@ -110,40 +134,15 @@ export default function ChatButton({ onClick }: Props) {
           onClick();
         }
       }}
-      style={{
-        left: position.x,
-        top: position.y,
-        position: "fixed",
-        transition: dragging
-          ? "none"
-          : "all .25s ease",
-      }}
-      className="
-      z-[99999]
-      w-16
-      h-16
-      rounded-full
-      bg-[#0068FF]
-      shadow-2xl
-      flex
-      items-center
-      justify-center
-      hover:scale-110
-      active:scale-95
-      duration-200
-      cursor-grab
-      active:cursor-grabbing
-      "
     >
       <img
         src="/images/lefica-chat.png"
-        alt="LEFICA"
         className="
-        w-14
-        h-14
-        rounded-full
+        w-full
+        h-full
         object-cover
         "
+        alt=""
       />
 
       <span

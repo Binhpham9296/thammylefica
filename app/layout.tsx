@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Thẩm mỹ Lefica | Triệt lông - Trị mụn - Trị nám Hải Phòng",
+  title: "Thẩm mỹ Lefica | Tẩy lông - Chăm sóc da mụn - chăm sóc da nám Hải Phòng",
   description:
-    "Thẩm mỹ Lefica chuyên triệt lông công nghệ cao, trị mụn, trị nám, xóa xăm tại Hải Phòng.",
+    "Thẩm mỹ Lefica chuyên tẩy lông công nghệ cao, chăm sóc da mụn, chăm sóc da nám, xóa xăm tại Hải Phòng.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
